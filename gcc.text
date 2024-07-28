@@ -1,0 +1,65 @@
+versiyon 1 icin gerekli kodlar:
+
+# C++ programını profil oluşturma ve optimizasyon seçenekleri ile derle
+g++ -pg -O2 -o va va.cpp -mavx2
+
+# Programı çalıştır ve zamanını ölç
+time ./va
+
+# Profil analizini oluştur
+gprof va gmon.out > analysis_va.txt
+
+# Valgrind ile bellek sızıntılarını kontrol et
+valgrind --leak-check=full --show-leak-kinds=all ./va
+
+# Valgrind'in Massif aracını kullanarak heap bellek kullanımını analiz et
+valgrind --tool=massif --massif-out-file=massif.out ./va
+
+# Massif analiz raporunu yazdır
+ms_print massif.out
+
+
+versyion 2 icin gerekli olan kodlar:
+
+# C++ programını profil oluşturma ve optimizasyon seçenekleri ile derle
+g++ -pg -O2 -o bubble_sort_simd bubblesort_simd.cpp -mavx2
+
+# Programı çalıştır ve zamanını ölç
+time ./bubble_sort_simd
+
+# Profil analizini oluştur
+gprof bubble_sort_simd gmon.out > analysis_bubble_sort_simd.txt
+
+# Valgrind ile bellek sızıntılarını kontrol et
+valgrind --leak-check=full --show-leak-kinds=all ./bubble_sort_simd
+
+# Valgrind'in Massif aracını kullanarak heap bellek kullanımını analiz et
+valgrind --tool=massif --massif-out-file=massif.out ./bubble_sort_simd
+
+# Massif analiz raporunu yazdır
+ms_print massif.out
+
+
+versyion 3 calistirmak icin gerekli olan kodlar:
+
+# C++ programını profil oluşturma ve optimizasyon seçenekleri ile derle ve pthread kütüphanesini bağla
+g++ -pg -O2 -pthread -o bubble_sort_multithread bubblesort_multithread.cpp
+
+# Programı çalıştır ve zamanını ölç
+time ./bubble_sort_multithread
+
+# Profil analizini oluştur
+gprof bubble_sort_multithread gmon.out > analysis_bubble_sort_multithread.txt
+
+# Valgrind ile bellek sızıntılarını kontrol et (tüm çekirdeklerde çalıştırma)
+valgrind --leak-check=full --show-leak-kinds=all ./va
+
+# Valgrind'in Massif aracını kullanarak heap bellek kullanımını analiz et (tüm çekirdeklerde çalıştırma)
+valgrind --tool=massif --massif-out-file=massif.out ./bubble_sort_multithread
+
+# Massif analiz raporunu yazdır
+ms_print massif.out
+
+
+
+
